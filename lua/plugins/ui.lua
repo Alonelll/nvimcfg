@@ -148,64 +148,71 @@ return {
     },
   },
   {
-    "nvim-tree/nvim-tree.lua",
+    "nvim-neo-tree/neo-tree.nvim",
+    lazy = false,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
     config = function()
-      require("nvim-tree").setup({
-        on_attach = function(bufnr)
-          local api = require("nvim-tree.api")
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        enable_git_status = true,
+        enable_diagnostics = true,
 
-          local function opts(desc)
-            return {
-              desc = "nvim-tree: " .. desc,
-              buffer = bufnr,
-              noremap = true,
-              silent = true,
-              nowait = true,
-            }
-          end
-
-          -- default mappings
-          api.config.mappings.default_on_attach(bufnr)
-
-          -- custom mappings
-          vim.keymap.set("n", "t", api.node.open.tab, opts("Tab"))
-        end,
-        actions = {
-          open_file = {
-            quit_on_open = true,
+        default_component_configs = {
+          indent = {
+            with_expanders = true,
           },
         },
-        sort = {
-          sorter = "case_sensitive",
-        },
-        view = {
+
+        sort_case_insensitive = true, -- wie sorter = "case_sensitive" bei nvim-tree
+
+        window = {
+          position = "right",
           width = 30,
-          relativenumber = true,
-        },
-        renderer = {
-          group_empty = true,
-        },
-        filters = {
-          dotfiles = true,
-          custom = {
-            "node_modules/.*",
+          mappings = {
+            -- Beispiel-Mapping, vergleichbar mit deinem "t" Mapping
+            ["t"] = function(state)
+              local node = state.tree:get_node()
+              if node then
+                vim.cmd("tabnew " .. node.path)
+              end
+            end,
           },
         },
-        log = {
-          enable = true,
-          truncate = true,
-          types = {
-            diagnostics = true,
-            git = true,
-            profile = true,
-            watcher = true,
+
+        filesystem = {
+          filtered_items = {
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hide_by_name = {
+              "node_modules",
+            },
+          },
+          follow_current_file = {
+            enabled = true,
+          },
+          hijack_netrw_behavior = "open_default",
+        },
+
+        event_handlers = {
+          {
+            event = "file_opened",
+            handler = function(file_path)
+              require("neo-tree.command").execute({ action = "close" })
+            end,
           },
         },
       })
 
-      if vim.fn.argc(-1) == 0 then
-        vim.cmd("NvimTreeFocus")
-      end
+      -- Automatisches Öffnen von NeoTree beim Start, wenn kein File übergeben wurde
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          if vim.fn.argc() == 0 then
+            require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+          end
+        end,
+      })
     end,
   },
 }

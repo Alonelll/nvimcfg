@@ -16,8 +16,11 @@ keymap.set("n", "<Leader>q", ":quit<Return>", opts)
 keymap.set("n", "<Leader>Q", ":qa<Return>", opts)
 
 -- File explorer with NvimTree
-keymap.set("n", "<Leader>f", ":NvimTreeFindFile<Return>", opts)
-keymap.set("n", "<Leader>t", ":NvimTreeToggle<Return>", opts)
+-- keymap.set("n", "<Leader>f", ":NvimTreeFindFile<Return>", opts)
+-- keymap.set("n", "<Leader>t", ":NvimTreeToggle<Return>", opts)
+-- File explorer with NeoTree
+keymap.set("n", "<Leader>f", ":Neotree reveal<Return>", opts)
+keymap.set("n", "<Leader>t", ":Neotree toggle<Return>", opts)
 
 -- Tabs
 keymap.set("n", "te", ":tabedit")
@@ -43,5 +46,5 @@ keymap.set("n", "<C-S-j>", "<C-w>-")
 
 -- Diagnostics
 keymap.set("n", "<C-j>", function()
-	vim.diagnostic.goto_next()
+  vim.diagnostic.goto_next()
 end, opts)
