@@ -17,7 +17,7 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "gruvbox-material",
+        colorscheme = "cyberdream",
         news = {
           lazyvim = true,
           neovim = true,

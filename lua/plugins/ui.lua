@@ -5,7 +5,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    enabled = false,
+    enabled = true,
   },
   -- messages, cmdline and the popupmenu
   {
@@ -149,8 +149,10 @@ return {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    lazy = false,
+    branch = "v3.x",
     dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
     config = function()
@@ -158,61 +160,43 @@ return {
         close_if_last_window = true,
         enable_git_status = true,
         enable_diagnostics = true,
-
+        use_libuv_file_watcher = true,
         default_component_configs = {
           indent = {
             with_expanders = true,
           },
         },
-
-        sort_case_insensitive = true, -- wie sorter = "case_sensitive" bei nvim-tree
-
-        window = {
-          position = "right",
-          width = 30,
-          mappings = {
-            -- Beispiel-Mapping, vergleichbar mit deinem "t" Mapping
-            ["t"] = function(state)
-              local node = state.tree:get_node()
-              if node then
-                vim.cmd("tabnew " .. node.path)
-              end
-            end,
-          },
-        },
-
         filesystem = {
+          hijack_netrw_behavior = "open_current",
+          bind_to_cwd = true,
+          follow_current_file = {
+            enabled = true,
+          },
           filtered_items = {
-            hide_dotfiles = false,
-            hide_gitignored = false,
+            visible = true,
+            hide_dotfiles = true,
             hide_by_name = {
               "node_modules",
             },
           },
-          follow_current_file = {
-            enabled = true,
-          },
-          hijack_netrw_behavior = "open_default",
         },
-
-        event_handlers = {
-          {
-            event = "file_opened",
-            handler = function(file_path)
-              require("neo-tree.command").execute({ action = "close" })
-            end,
+        window = {
+          position = "right",
+          width = 30,
+          mappings = {
+            ["t"] = "open_tabnew",
+            ["<cr>"] = "open",
+            ["<esc>"] = "close_window",
           },
         },
+        sort_case_insensitive = false,
+        log_level = "info",
+        log_to_file = true,
       })
 
-      -- Automatisches Öffnen von NeoTree beim Start, wenn kein File übergeben wurde
-      vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-          if vim.fn.argc() == 0 then
-            require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-          end
-        end,
-      })
+      if vim.fn.argc(-1) == 0 then
+        vim.cmd("Neotree show")
+      end
     end,
   },
 }
