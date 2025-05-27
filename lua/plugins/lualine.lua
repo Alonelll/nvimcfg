@@ -4,7 +4,7 @@ return {
   config = function()
     require("lualine").setup({
       options = {
-        theme = "gruvbox", -- Beispielthema
+        theme = "cyberdream", -- Beispielthema
         icons_enabled = true,
       },
       sections = {

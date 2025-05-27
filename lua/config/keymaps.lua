@@ -16,9 +16,6 @@ keymap.set("n", "<Leader>q", ":quit<Return>", opts)
 keymap.set("n", "<Leader>Q", ":qa<Return>", opts)
 
 -- File explorer with NvimTree
--- keymap.set("n", "<Leader>f", ":NvimTreeFindFile<Return>", opts)
--- keymap.set("n", "<Leader>t", ":NvimTreeToggle<Return>", opts)
--- File explorer with NeoTree
 keymap.set("n", "<Leader>f", ":Neotree reveal<Return>", opts)
 keymap.set("n", "<Leader>t", ":Neotree toggle<Return>", opts)
 
@@ -48,3 +45,10 @@ keymap.set("n", "<C-S-j>", "<C-w>-")
 keymap.set("n", "<C-j>", function()
   vim.diagnostic.goto_next()
 end, opts)
+
+-- Switch instand to normal Mode
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], {
+  noremap = true,
+  silent = true,
+  desc = "Terminal: Exit to Normal Mode",
+})
