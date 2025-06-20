@@ -1,3 +1,4 @@
+vim.g.useLazyGit = true
 if vim.loader then
   vim.loader.enable()
 end

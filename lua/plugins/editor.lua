@@ -101,9 +101,6 @@ return {
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
         winblend = 0,
-        mappings = {
-          n = {},
-        },
       })
       opts.pickers = {
         diagnostics = {

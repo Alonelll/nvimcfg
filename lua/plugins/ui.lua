@@ -214,7 +214,9 @@ return {
       })
 
       if vim.fn.argc(-1) == 0 then
-        vim.cmd("Neotree show")
+        vim.defer_fn(function()
+          vim.cmd("Neotree show")
+        end, 50)
       end
     end,
   },
