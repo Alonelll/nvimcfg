@@ -1,26 +1,42 @@
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		tag = "v0.9.1",
-		opts = {
-			ensure_installed = {
-				"javascript",
-				"typescript",
-				"css",
-				"gitignore",
-				"graphql",
-				"http",
-				"json",
-				"scss",
-				"sql",
-				"vim",
-				"lua",
-			},
-			query_linter = {
-				enable = true,
-				use_virtual_text = true,
-				lint_events = { "BufWrite", "CursorHold" },
-			},
-		},
-	},
+  {
+    "nvim-treesitter/nvim-treesitter",
+    query_liopts = {
+      -- LazyVim config for treesitter
+      indent = { enable = true }, ---@type lazyvim.TSFeat
+      highlight = { enable = true }, ---@type lazyvim.TSFeat
+      folds = { enable = true }, ---@type lazyvim.TSFeat
+      ensure_installed = {
+        "bash",
+        "c",
+        "diff",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonc",
+        "lua",
+        "luadoc",
+        "luap",
+        "markdown",
+        "markdown_inline",
+        "printf",
+        "python",
+        "query",
+        "regex",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
+      },
+      query_linter = {
+        enable = true,
+        use_virtual_text = true,
+        lint_events = { "BufWrite", "CursorHold" },
+      },
+    },
+  },
 }

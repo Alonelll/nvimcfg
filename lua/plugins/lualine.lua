@@ -4,7 +4,8 @@ return {
   config = function()
     require("lualine").setup({
       options = {
-        -- theme = "cyberdream", -- Beispielthema
+        -- theme = "rose-pine",
+        -- theme = "kanso", -- Beispielthema
         theme = "ayu", -- Beispielthema
         icons_enabled = true,
       },

@@ -1,3 +1,11 @@
+-- function ColorMyPencils(color)
+--   color = color or "rose-pine"
+--   vim.cmd.colorscheme(color)
+--
+--   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--   vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+-- end
+
 -- return {
 --   "scottmckendry/cyberdream.nvim",
 --   lazy = false,
@@ -26,7 +34,7 @@
 --     vim.cmd.colorscheme("gruvbox")
 --   end,
 -- }
-
+--
 local user_ayu = {}
 --- Example visual select colors
 --  make sure you set vim.o.backgorund='light' in your init.lua
@@ -70,7 +78,7 @@ if transparent then
 else
   my_overrides = nil
 end
-
+--
 return {
   "Shatur/neovim-ayu",
   priority = 1000,
@@ -83,3 +91,48 @@ return {
     -- vim.cmd([[colorscheme ayu-mirage]])
   end,
 }
+-- return {
+--   "webhooked/kanso.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     require("kanso").setup({
+--       theme = "zen",
+--       terminal_colors = true,
+--       transparent = true,
+--     })
+--     -- Colorscheme aktivieren
+--     vim.cmd.colorscheme("kanso")
+--   end,
+-- }
+-- -- return {
+--   "ribru17/bamboo.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     require("bamboo").setup({
+--       transparent = true,
+--       lualine = {
+--         transparent = true, -- lualine center bar transparency
+--       },
+--     })
+--     require("bamboo").load()
+--   end,
+-- }
+--
+-- return {
+--   "rose-pine/neovim",
+--   name = "rose-pine",
+--   config = function()
+--     require("rose-pine").setup({
+--       disable_background = true,
+--       dim_inactive_windows = true,
+--       variant = "moon",
+--     })
+--
+--     vim.o.background = "dark"
+--     vim.cmd("colorscheme rose-pine")
+--
+--     -- ColorMyPencils()
+--   end,
+-- }

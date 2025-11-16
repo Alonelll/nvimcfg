@@ -4,8 +4,8 @@ local opts = { noremap = true, silent = true }
 keymap.set("n", "x", '"_x')
 
 -- Increment/decrement
-keymap.set("n", "+", "<C-a>")
-keymap.set("n", "-", "<C-x>")
+keymap.set("n", "+", "<s-a>")
+keymap.set("n", "-", "<s-x>")
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
@@ -16,7 +16,7 @@ keymap.set("n", "<Leader>q", ":quit<Return>", opts)
 keymap.set("n", "<Leader>Q", ":qa<Return>", opts)
 
 -- File explorer with NvimTree
-keymap.set("n", "<Leader>f", ":Neotree reveal<Return>", opts)
+-- keymap.set("n", "<Leader>f", ":Neotree reveal<Return>", opts)
 keymap.set("n", "<Leader>t", ":Neotree toggle<Return>", opts)
 
 -- Tabs
