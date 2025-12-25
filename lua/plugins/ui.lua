@@ -90,9 +90,35 @@ return {
     },
     opts = {
       options = {
-        mode = "tabs",
-        show_buffer_close_icons = false,
-        show_close_icon = false,
+    -- stylua: ignore
+    close_command = function(n) Snacks.bufdelete(n) end,
+    -- stylua: ignore
+    right_mouse_command = function(n) Snacks.bufdelete(n) end,
+        diagnostics = "nvim_lsp",
+        always_show_bufferline = false,
+        diagnostics_indicator = function(_, _, diag)
+          local icons = LazyVim.config.icons.diagnostics
+          local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+            .. (diag.warning and icons.Warn .. diag.warning or "")
+          return vim.trim(ret)
+        end,
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "File Explorer",
+            highlight = "Directory",
+            text_align = "left",
+            seperator = true,
+          },
+          {
+            filetype = "snacks_layout_box",
+          },
+        },
+        ---@param opts { filetype: string }
+        get_element_icon = function(opts)
+          return opts.filetype and LazyVim.config.icons.ft[opts.filetype] or nil
+        end,
+        seperator_style = "slant",
       },
     },
   },
@@ -202,8 +228,7 @@ return {
           },
         },
         window = {
-          -- position = "right",
-          -- position = "left",
+          position = "left",
           width = 30,
           mappings = {
             ["t"] = "open_tabnew",
