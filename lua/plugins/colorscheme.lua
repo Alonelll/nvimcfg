@@ -141,82 +141,77 @@
 return {
   {
     "rebelot/kanagawa.nvim",
-    lazy = false, -- sorgt dafür, dass es beim Start geladen wird
-    priority = 1000, -- lädt das Theme vor allen anderen Plugins
+    lazy = false,
+    priority = 1000,
     opts = {
       -- ==== Basis-Einstellungen ====
-      compile = false, -- false = kein Bytecode kompilieren
-      undercurl = true, -- untercurl für Fehlerunterstreichungen
+      compile = false,
+      undercurl = true,
       commentStyle = { italic = true },
       functionStyle = {},
       keywordStyle = { italic = true },
       statementStyle = { bold = true },
       typeStyle = {},
-      transparent = false, -- true = kein Hintergrund setzen
-      dimInactive = false, -- false = keine inactive Fenster abdunkeln
-      terminalColors = true, -- true = terminal_color_0-17 setzen
+      transparent = true,
+      dimInactive = false,
+      terminalColors = true,
 
       -- ==== Thema & Farben ====
-      theme = "dragon", -- lädt explizit den dragon-Style
+      theme = "dragon",
       background = {
-        dark = "dragon", -- bei dunklem Hintergrund dragon wählen
-        light = "lotus", -- falls du jemals light brauchst
+        dark = "dragon",
+        light = "lotus",
       },
 
       colors = {
-        palette = {}, -- optional: eigene Palette overrides
+        palette = {},
         theme = {
           wave = {},
           lotus = {},
-          dragon = {}, -- optional: spezielle dragon overrides
-          all = {}, -- global overrides für alle Varianten
+          dragon = {},
+          all = {},
         },
       },
 
-      -- ==== Override Highlights (optional) ====
-      overrides = function(colors)
-        local theme = colors.theme
-        return {
-          Normal = { bg = "#000000" },
-          NormalNC = { bg = "#000000" },
-          SignColumn = { bg = "#000000" },
-          EndOfBuffer = { bg = "#000000" },
-          LineNr = { bg = "#000000" },
-          FoldColumn = { bg = "#000000" },
-
-          -- FLOATS
-          NormalFloat = { bg = "#000000" },
-          FloatBorder = { bg = "#000000" },
-
-          -- NEOTREE
-          NeoTreeNormal = { bg = "#000000" },
-          NeoTreeNormalNC = { bg = "#000000" },
-          NeoTreeEndOfBuffer = { bg = "#000000" },
-          NeoTreeWinSeparator = { bg = "#000000", fg = "#000000" },
-
-          -- TELESCOPE
-          TelescopeNormal = { bg = "#000000" },
-          TelescopeBorder = { bg = "#000000", fg = "#000000" },
-          TelescopePromptNormal = { bg = "#000000" },
-          TelescopeResultsNormal = { bg = "#000000" },
-          TelescopePreviewNormal = { bg = "#000000" },
-
-          -- Beispiel: CursorLine & CursorColumn minimal anpassen
-          CursorLine = { bg = theme.ui.bg_p2 },
-          CursorColumn = { bg = theme.ui.bg_p2 },
-
-          -- Beispiel: leichte Kontrastfarben für LSP Diagnostics
-          DiagnosticError = { fg = theme.diag.error, bold = true },
-          DiagnosticWarn = { fg = theme.diag.warning, underline = true },
-          DiagnosticInfo = { fg = theme.diag.info },
-          DiagnosticHint = { fg = theme.diag.hint },
-        }
-      end,
+      -- ==== Overrides nur, wenn transparent = false ====
+      overrides = nil, -- wird in config dynamisch gesetzt
     },
+
     config = function(_, opts)
-      -- Setup mit den opts, die lazy.nvim übergibt
+      -- Overrides nur setzen, wenn transparent = false
+      if not opts.transparent then
+        opts.overrides = function(colors)
+          local theme = colors.theme
+          return {
+            Normal = { bg = "#000000" },
+            NormalNC = { bg = "#000000" },
+            SignColumn = { bg = "#000000" },
+            EndOfBuffer = { bg = "#000000" },
+            LineNr = { bg = "#000000" },
+            FoldColumn = { bg = "#000000" },
+            NormalFloat = { bg = "#000000" },
+            FloatBorder = { bg = "#000000" },
+            NeoTreeNormal = { bg = "#000000" },
+            NeoTreeNormalNC = { bg = "#000000" },
+            NeoTreeEndOfBuffer = { bg = "#000000" },
+            NeoTreeWinSeparator = { bg = "#000000", fg = "#000000" },
+            TelescopeNormal = { bg = "#000000" },
+            TelescopeBorder = { bg = "#000000", fg = "#000000" },
+            TelescopePromptNormal = { bg = "#000000" },
+            TelescopeResultsNormal = { bg = "#000000" },
+            TelescopePreviewNormal = { bg = "#000000" },
+            CursorLine = { bg = theme.ui.bg_p2 },
+            CursorColumn = { bg = theme.ui.bg_p2 },
+            DiagnosticError = { fg = theme.diag.error, bold = true },
+            DiagnosticWarn = { fg = theme.diag.warning, underline = true },
+            DiagnosticInfo = { fg = theme.diag.info },
+            DiagnosticHint = { fg = theme.diag.hint },
+          }
+        end
+      end
+
+      -- Setup und Colorscheme setzen
       require("kanagawa").setup(opts)
-      -- Setzt die Colorscheme-Variante
       vim.cmd("colorscheme kanagawa-dragon")
     end,
   },
