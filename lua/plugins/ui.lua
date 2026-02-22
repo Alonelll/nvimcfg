@@ -145,11 +145,6 @@ return {
   -- buffer line
   {
     "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
-    },
     opts = {
       options = {
     -- stylua: ignore
@@ -167,10 +162,11 @@ return {
         offsets = {
           {
             filetype = "neo-tree",
-            text = "Neo-tree",
+            text = "File Explorer",
             highlight = "Directory",
             text_align = "left",
-            sepator = true,
+            separator = true,
+            separator_style = "slant",
           },
           {
             filetype = "snacks_layout_box",
@@ -374,8 +370,39 @@ return {
   -- },
   {
     "folke/snacks.nvim",
-    opts = {
-      image = { enabled = false },
+    enabled = true,
+    -- opts =
+    --   image = { enabled = false },
+    -- },
+  },
+  -- markdown-preview.nvim
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+    init = function()
+      -- optional: definiere Dateitypen, bei denen Preview verfügbar ist
+      vim.g.mkdp_filetypes = { "markdown" }
+      -- auto-start Preview beim Öffnen? (0 = aus, 1 = an)
+      vim.g.mkdp_auto_start = 0
+      -- automatisch schließen wenn Buffer wechselt (standard: 1)
+      vim.g.mkdp_auto_close = 1
+      -- Standardtheme (dark/light)
+      vim.g.mkdp_theme = "dark"
+    end,
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-mini/mini.nvim",
     },
+    ft = { "markdown" },
+    config = function()
+      require("render-markdown").setup()
+    end,
   },
 }

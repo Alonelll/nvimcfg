@@ -141,4 +141,24 @@ return {
       require("telescope").load_extension("file_browser")
     end,
   },
+  -- Auto Closing tag plugin
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-ts-autotag").setup({
+        filetypes = {
+          "html",
+          "javascriptreact",
+          "typescriptreact",
+          "svelte",
+          "vue",
+          "tsx",
+          "jsx",
+        },
+        enable_close = true,
+        enable_rename = true,
+      })
+    end,
+  },
 }

@@ -177,9 +177,29 @@ return {
       overrides = function(colors)
         local theme = colors.theme
         return {
-          -- Beispiel: transparente Floats
-          NormalFloat = { bg = "none" },
-          FloatBorder = { bg = "none" },
+          Normal = { bg = "#000000" },
+          NormalNC = { bg = "#000000" },
+          SignColumn = { bg = "#000000" },
+          EndOfBuffer = { bg = "#000000" },
+          LineNr = { bg = "#000000" },
+          FoldColumn = { bg = "#000000" },
+
+          -- FLOATS
+          NormalFloat = { bg = "#000000" },
+          FloatBorder = { bg = "#000000" },
+
+          -- NEOTREE
+          NeoTreeNormal = { bg = "#000000" },
+          NeoTreeNormalNC = { bg = "#000000" },
+          NeoTreeEndOfBuffer = { bg = "#000000" },
+          NeoTreeWinSeparator = { bg = "#000000", fg = "#000000" },
+
+          -- TELESCOPE
+          TelescopeNormal = { bg = "#000000" },
+          TelescopeBorder = { bg = "#000000", fg = "#000000" },
+          TelescopePromptNormal = { bg = "#000000" },
+          TelescopeResultsNormal = { bg = "#000000" },
+          TelescopePreviewNormal = { bg = "#000000" },
 
           -- Beispiel: CursorLine & CursorColumn minimal anpassen
           CursorLine = { bg = theme.ui.bg_p2 },

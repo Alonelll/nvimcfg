@@ -1,32 +1,24 @@
--- plugins/lualine.lua
--- return {
---   "nvim-lualine/lualine.nvim",
---   config = function()
---     require("lualine").setup({
---       options = {
---         -- theme = "bamboo", -- Beispielthema
---         theme = "kanagawa", -- Beispielthema
---         -- theme = "gruvbox", -- Beispielthema
---         icons_enabled = true,
---       },
---       sections = {
---         lualine_a = { "mode" },
---         lualine_b = { "branch", "diff" },
---         lualine_c = { "filename" },
---         lualine_x = { "encoding", "fileformat", "filetype" },
---         lualine_y = { "progress" },
---         lualine_z = { "location" },
---       },
---     })
---   end,
--- }
-
 return {
   "nvim-lualine/lualine.nvim",
   opts = function(_, opts)
     local LazyVim = require("lazyvim.util")
     opts.options = opts.options or {}
-    -- opts.options.theme = "kanagawa"
+    opts.options.theme = function()
+      local theme = require("lualine.themes.kanagawa")
+
+      -- 🔥 kompletter schwarzer Hintergrund
+      for _, mode in pairs(theme) do
+        if type(mode) == "table" then
+          for _, section in pairs(mode) do
+            if section.bg then
+              section.bg = "#000000"
+            end
+          end
+        end
+      end
+
+      return theme
+    end
     opts.options.icons_enabled = true
 
     opts.sections = opts.sections or {}
