@@ -147,17 +147,19 @@ return {
     event = "InsertEnter",
     config = function()
       require("nvim-ts-autotag").setup({
-        filetypes = {
-          "html",
-          "javascriptreact",
-          "typescriptreact",
-          "svelte",
-          "vue",
-          "tsx",
-          "jsx",
+        opts = {
+          filetypes = {
+            "html",
+            "javascriptreact",
+            "typescriptreact",
+            "svelte",
+            "vue",
+            "tsx",
+            "jsx",
+          },
+          enable_close = true,
+          enable_rename = true,
         },
-        enable_close = true,
-        enable_rename = true,
       })
     end,
   },
