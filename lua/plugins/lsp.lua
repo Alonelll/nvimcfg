@@ -14,6 +14,8 @@ return {
         "ruff",
         "ruff-lsp",
         "angular-language-server", -- <-- Angular LSP hinzufügen
+        "clang-format",
+        "codelldb",
       })
     end,
   },
@@ -31,6 +33,7 @@ return {
           end,
         },
         tsserver = {
+          filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,

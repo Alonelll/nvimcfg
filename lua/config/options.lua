@@ -30,6 +30,15 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = "n"
-
--- Add asterisks in block comments
+vim.opt.list = false
+vim.opt.listchars = {
+  tab = "> ",
+  nbsp = "+",
+  -- trail bewusst NICHT gesetzt
+}
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "Whitespace", { fg = "NONE", bg = "NONE" })
+  end,
+})
 vim.opt.formatoptions:append({ "r" })

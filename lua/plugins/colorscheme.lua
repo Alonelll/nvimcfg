@@ -138,13 +138,15 @@
 -- }
 --
 --
+-- colorscheme.lua
+vim.g.colorscheme_transparent = true -- initial transparent, kann auf false gesetzt werden
+
 return {
   {
     "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
     opts = {
-      -- ==== Basis-Einstellungen ====
       compile = false,
       undercurl = true,
       commentStyle = { italic = true },
@@ -152,17 +154,14 @@ return {
       keywordStyle = { italic = true },
       statementStyle = { bold = true },
       typeStyle = {},
-      transparent = true,
+      transparent = vim.g.colorscheme_transparent, -- transparenz dynamisch
       dimInactive = false,
       terminalColors = true,
-
-      -- ==== Thema & Farben ====
-      theme = "dragon",
+      theme = "wave",
       background = {
-        dark = "dragon",
+        dark = "wave",
         light = "lotus",
       },
-
       colors = {
         palette = {},
         theme = {
@@ -172,9 +171,7 @@ return {
           all = {},
         },
       },
-
-      -- ==== Overrides nur, wenn transparent = false ====
-      overrides = nil, -- wird in config dynamisch gesetzt
+      overrides = nil, -- wird in config gesetzt
     },
 
     config = function(_, opts)
@@ -210,7 +207,6 @@ return {
         end
       end
 
-      -- Setup und Colorscheme setzen
       require("kanagawa").setup(opts)
       vim.cmd("colorscheme kanagawa-dragon")
     end,

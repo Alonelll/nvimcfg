@@ -21,6 +21,10 @@ return {
     end
     opts.options.icons_enabled = true
 
+    opts.options.disabled_filetypes = {
+      statusline = { "neo-tree", "Neo-tree" },
+      winbar = { "neo-tree", "Neo-tree" },
+    }
     opts.sections = opts.sections or {}
     opts.sections.lualine_a = { "mode" }
     opts.sections.lualine_b = { "branch", "diff" }

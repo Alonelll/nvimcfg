@@ -286,8 +286,8 @@ return {
           },
         },
         window = {
-          position = "left",
-          width = 30,
+          position = "right",
+          width = 47,
           mappings = {
             ["t"] = "open_tabnew",
             ["<cr>"] = "open",
