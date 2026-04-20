@@ -29,12 +29,39 @@
 --     require("gruvbox").setup({
 --       terminal_colors = true,
 --       transparent_mode = false,
+--       overrides = {
+--         Normal       = { bg = "#000000" },
+--         NormalNC     = { bg = "#000000" },
+--         SignColumn   = { bg = "#000000" },
+--         EndOfBuffer  = { bg = "#000000" },
+--         LineNr       = { bg = "#000000" },
+--         FoldColumn   = { bg = "#000000" },
+--         NormalFloat  = { bg = "#000000" },
+--         FloatBorder  = { bg = "#000000" },
+--         WinSeparator = { bg = "#000000", fg = "#3c3836" },
+--       },
 --     })
---     -- Colorscheme aktivieren
+--
 --     vim.cmd.colorscheme("gruvbox")
+--
+--     -- Nochmal erzwingen nach colorscheme
+--     vim.api.nvim_create_autocmd("ColorScheme", {
+--       pattern = "*",
+--       callback = function()
+--         local hl = vim.api.nvim_set_hl
+--         hl(0, "Normal",      { bg = "#000000" })
+--         hl(0, "NormalNC",    { bg = "#000000" })
+--         hl(0, "SignColumn",  { bg = "#000000" })
+--         hl(0, "EndOfBuffer", { bg = "#000000" })
+--         hl(0, "LineNr",      { bg = "#000000" })
+--         hl(0, "FoldColumn",  { bg = "#000000" })
+--         hl(0, "NormalFloat", { bg = "#000000" })
+--         hl(0, "WinSeparator",{ bg = "#000000", fg = "#3c3836" })
+--       end,
+--     })
 --   end,
 -- }
--- --
+--
 -- local user_ayu = {}
 -- --- Example visual select colors
 -- --  make sure you set vim.o.backgorund='light' in your init.lua
@@ -139,7 +166,7 @@
 --
 --
 -- colorscheme.lua
-vim.g.colorscheme_transparent = true -- initial transparent, kann auf false gesetzt werden
+vim.g.colorscheme_transparent = false
 
 return {
   {
@@ -154,7 +181,7 @@ return {
       keywordStyle = { italic = true },
       statementStyle = { bold = true },
       typeStyle = {},
-      transparent = vim.g.colorscheme_transparent, -- transparenz dynamisch
+      transparent = vim.g.colorscheme_transparent,
       dimInactive = false,
       terminalColors = true,
       theme = "wave",
@@ -171,11 +198,9 @@ return {
           all = {},
         },
       },
-      overrides = nil, -- wird in config gesetzt
+      overrides = nil,
     },
-
     config = function(_, opts)
-      -- Overrides nur setzen, wenn transparent = false
       if not opts.transparent then
         opts.overrides = function(colors)
           local theme = colors.theme
@@ -208,7 +233,16 @@ return {
       end
 
       require("kanagawa").setup(opts)
-      vim.cmd("colorscheme kanagawa-dragon")
+      vim.cmd("colorscheme kanagawa-wave")
+
+      -- Autocmd außerhalb der Plugin-Tabelle aber innerhalb config ist ok
+      vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+        callback = function()
+          if not vim.g.colorscheme_transparent then
+            vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+          end
+        end,
+      })
     end,
   },
 }

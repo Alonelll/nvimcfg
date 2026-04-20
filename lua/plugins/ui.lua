@@ -286,8 +286,8 @@ return {
           },
         },
         window = {
-          position = "right",
-          width = 47,
+          position = "left",
+          width = 50,
           mappings = {
             ["t"] = "open_tabnew",
             ["<cr>"] = "open",
@@ -371,9 +371,9 @@ return {
   {
     "folke/snacks.nvim",
     enabled = true,
-    -- opts =
-    --   image = { enabled = false },
-    -- },
+    opts = {
+      dim = { enabled = false },
+    },
   },
   -- markdown-preview.nvim
   {
