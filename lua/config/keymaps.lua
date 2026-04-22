@@ -42,7 +42,14 @@ keymap.set("n", "<C-S-k>", "<C-w>+")
 keymap.set("n", "<C-S-j>", "<C-w>-")
 
 -- Diagnostics
-keymap.set("n", "<C-j>", function() end, opts)
+vim.keymap.set("n", "<C-J>", function()
+  vim.diagnostic.jump({ count = 1 })
+end)
+vim.keymap.set("n", "<C-K>", function()
+  vim.diagnostic.jump({ count = -1 })
+end)
+vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
 
 -- Bufferline navigation
 vim.keymap.set("n", "<Tab>", function()
