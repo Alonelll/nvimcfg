@@ -1,3 +1,6 @@
+-- colorscheme.lua
+vim.g.colorscheme_transparent = false
+
 -- function ColorMyPencils(color)
 --   color = color or "rose-pine"
 --   vim.cmd.colorscheme(color)
@@ -148,101 +151,117 @@
 --   end,
 -- }
 --
--- return {
---   "rose-pine/neovim",
---   name = "rose-pine",
---   config = function()
---     require("rose-pine").setup({
---       disable_background = true,
---       dim_inactive_windows = true,
---     })
---
---     vim.o.background = "dark"
---     vim.cmd("colorscheme rose-pine")
---
---     ColorMyPencils()
---   end,
--- }
---
---
--- colorscheme.lua
-vim.g.colorscheme_transparent = false
-
 return {
   {
-    "rebelot/kanagawa.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      compile = false,
-      undercurl = true,
-      commentStyle = { italic = true },
-      functionStyle = {},
-      keywordStyle = { italic = true },
-      statementStyle = { bold = true },
-      typeStyle = {},
-      transparent = vim.g.colorscheme_transparent,
-      dimInactive = false,
-      terminalColors = true,
-      theme = "wave",
-      background = {
-        dark = "wave",
-        light = "lotus",
-      },
-      colors = {
-        palette = {},
-        theme = {
-          wave = {},
-          lotus = {},
-          dragon = {},
-          all = {},
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require("rose-pine").setup({
+        disable_background = not vim.g.colorscheme_transparent == false,
+        dim_inactive_windows = false,
+        styles = {
+          transparency = vim.g.colorscheme_transparent,
         },
-      },
-      overrides = nil,
-    },
-    config = function(_, opts)
-      if not opts.transparent then
-        opts.overrides = function(colors)
-          local theme = colors.theme
-          return {
-            Normal = { bg = "#000000" },
-            NormalNC = { bg = "#000000" },
-            SignColumn = { bg = "#000000" },
-            EndOfBuffer = { bg = "#000000" },
-            LineNr = { bg = "#000000" },
-            FoldColumn = { bg = "#000000" },
-            NormalFloat = { bg = "#000000" },
-            FloatBorder = { bg = "#000000" },
-            NeoTreeNormal = { bg = "#000000" },
-            NeoTreeNormalNC = { bg = "#000000" },
-            NeoTreeEndOfBuffer = { bg = "#000000" },
-            NeoTreeWinSeparator = { bg = "#000000", fg = "#000000" },
-            TelescopeNormal = { bg = "#000000" },
-            TelescopeBorder = { bg = "#000000", fg = "#000000" },
-            TelescopePromptNormal = { bg = "#000000" },
-            TelescopeResultsNormal = { bg = "#000000" },
-            TelescopePreviewNormal = { bg = "#000000" },
-            CursorLine = { bg = theme.ui.bg_p2 },
-            CursorColumn = { bg = theme.ui.bg_p2 },
-            DiagnosticError = { fg = theme.diag.error, bold = true },
-            DiagnosticWarn = { fg = theme.diag.warning, underline = true },
-            DiagnosticInfo = { fg = theme.diag.info },
-            DiagnosticHint = { fg = theme.diag.hint },
-          }
-        end
-      end
+      })
 
-      require("kanagawa").setup(opts)
-      vim.cmd("colorscheme kanagawa-wave")
+      vim.o.background = "dark"
+      vim.cmd("colorscheme rose-pine")
 
-      -- Autocmd außerhalb der Plugin-Tabelle aber innerhalb config ist ok
       vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
         callback = function()
           if not vim.g.colorscheme_transparent then
             vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+            vim.api.nvim_set_hl(0, "NormalNC", { bg = "#000000" })
+            vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
+            vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "#000000" })
+            vim.api.nvim_set_hl(0, "LineNr", { bg = "#000000" })
+            vim.api.nvim_set_hl(0, "FoldColumn", { bg = "#000000" })
+            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+            vim.api.nvim_set_hl(0, "WinSeparator", { bg = "#000000" })
           end
         end,
       })
     end,
   },
 }
+--
+--
+--
+-- return {
+--   {
+--     "rebelot/kanagawa.nvim",
+--     lazy = false,
+--     priority = 1000,
+--     opts = {
+--       compile = false,
+--       undercurl = true,
+--       commentStyle = { italic = true },
+--       functionStyle = {},
+--       keywordStyle = { italic = true },
+--       statementStyle = { bold = true },
+--       typeStyle = {},
+--       transparent = vim.g.colorscheme_transparent,
+--       dimInactive = false,
+--       terminalColors = true,
+--       theme = "wave",
+--       background = {
+--         dark = "wave",
+--         light = "lotus",
+--       },
+--       colors = {
+--         palette = {},
+--         theme = {
+--           wave = {},
+--           lotus = {},
+--           dragon = {},
+--           all = {},
+--         },
+--       },
+--       overrides = nil,
+--     },
+--     config = function(_, opts)
+--       if not opts.transparent then
+--         opts.overrides = function(colors)
+--           local theme = colors.theme
+--           return {
+--             Normal = { bg = "#000000" },
+--             NormalNC = { bg = "#000000" },
+--             SignColumn = { bg = "#000000" },
+--             EndOfBuffer = { bg = "#000000" },
+--             LineNr = { bg = "#000000" },
+--             FoldColumn = { bg = "#000000" },
+--             NormalFloat = { bg = "#000000" },
+--             FloatBorder = { bg = "#000000" },
+--             NeoTreeNormal = { bg = "#000000" },
+--             NeoTreeNormalNC = { bg = "#000000" },
+--             NeoTreeEndOfBuffer = { bg = "#000000" },
+--             NeoTreeWinSeparator = { bg = "#000000", fg = "#000000" },
+--             TelescopeNormal = { bg = "#000000" },
+--             TelescopeBorder = { bg = "#000000", fg = "#000000" },
+--             TelescopePromptNormal = { bg = "#000000" },
+--             TelescopeResultsNormal = { bg = "#000000" },
+--             TelescopePreviewNormal = { bg = "#000000" },
+--             CursorLine = { bg = theme.ui.bg_p2 },
+--             CursorColumn = { bg = theme.ui.bg_p2 },
+--             DiagnosticError = { fg = theme.diag.error, bold = true },
+--             DiagnosticWarn = { fg = theme.diag.warning, underline = true },
+--             DiagnosticInfo = { fg = theme.diag.info },
+--             DiagnosticHint = { fg = theme.diag.hint },
+--           }
+--         end
+--       end
+--
+--       require("kanagawa").setup(opts)
+--       vim.cmd("colorscheme kanagawa-wave")
+--
+--       -- Autocmd außerhalb der Plugin-Tabelle aber innerhalb config ist ok
+--       vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+--         callback = function()
+--           if not vim.g.colorscheme_transparent then
+--             vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+--           end
+--         end,
+--       })
+--     end,
+--   },
+-- }

@@ -4,7 +4,7 @@ return {
     local LazyVim = require("lazyvim.util")
     opts.options = opts.options or {}
     opts.options.theme = function()
-      local theme = require("lualine.themes.kanagawa")
+      local theme = require("lualine.themes.rose-pine")
 
       -- 🔥 kompletter schwarzer Hintergrund
       for _, mode in pairs(theme) do
